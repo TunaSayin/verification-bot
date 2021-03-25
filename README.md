@@ -12,7 +12,7 @@ This is simple verification bot for discord. Basically what it does is once you 
 # Usage
 Use `vf!verify` in any channel that bot can see and follow the link that bot sent.
 
-[Usage](https://media.giphy.com/media/gDHGEViMMrRZgStsuZ/giphy.gif)
+![Usage](https://media.giphy.com/media/gDHGEViMMrRZgStsuZ/giphy.gif)
 
 # License
 ```
