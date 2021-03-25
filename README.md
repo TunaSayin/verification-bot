@@ -12,6 +12,8 @@ This is simple verification bot for discord. Basically what it does is once you 
 # Usage
 Use `vf!verify` in any channel that bot can see and follow the link that bot sent.
 
+<iframe src="https://giphy.com/embed/gDHGEViMMrRZgStsuZ" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/gDHGEViMMrRZgStsuZ">via GIPHY</a></p>
+
 # License
 ```
 MIT License
