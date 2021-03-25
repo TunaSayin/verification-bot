@@ -7,16 +7,7 @@ Microsoft Visual Studio Tools (your are going to need this to install [quick.db]
 
 # Setup
 Install the project and use `npm install` command to install all node modules that bot needs.
-Create an `.env` folder inside of the bot's folder and paste the following code and fill the parts.
-
-```
-TOKEN=
-PREFIX=vf!
-PORT=3000
-CLIENT_ID=
-CLIENT_SECRET=
-REDIRECT_URL=
-```
+Edit the `.env` folder for your bot and you are good to go!
 
 # Usage
 Use `vf!verify` in any channel that bot can see and follow the link that bot sent.
