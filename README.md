@@ -1,5 +1,5 @@
 # Discord Verification Bot
-This is simple verification bot based on loggining to a simple website with your Discord account. Simply when you use `vf!verify` command in a channel it creates a code and matches the code with the command user's Discord account and once you logged in the site it checks your login paramter (code) and your Discord account. If the code matches with your Discord account then you get verified.
+This is simple verification bot based on loggining to a simple website with your Discord account. Simply when you use `vf!verify` command in a channel it creates a code and matches the code with the command user's Discord account and once you logged in the site it checks your login paramter (code that is provided to you by bot) and your Discord account. If the code matches with your Discord account then you get verified.
 
 # Prerequisites
 - NodeJS v12 or higher, <br />
