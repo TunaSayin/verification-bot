@@ -17,7 +17,7 @@ module.exports.start = (client) => {
 
   app.get("/login", (req, res) => {
     res.redirect(
-      `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URL}&response_type=code&scope=identify`
+      `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code&scope=identify`
     );
   });
 
@@ -40,7 +40,7 @@ module.exports.start = (client) => {
         code: req.query.code,
         scope: "identify",
         grantType: "authorization_code",
-        redirectUri: process.env.REDIRECT_URL,
+        redirectUri: process.env.REDIRECT_URI,
       })
       .catch((err) => {
         console.log(err);

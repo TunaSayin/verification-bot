@@ -1,81 +1,78 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const colors = require('colors');
-const Discord = require('discord.js');
+const colors = require("colors");
+const Discord = require("discord.js");
 const client = new Discord.Client();
-const dashboard = require('./Dashboard/server');
+const dashboard = require("./Dashboard/server");
 
 client.commands = new Discord.Collection();
 
 function loadCommands(dir) {
-    const fs = require('fs');
+  const fs = require("fs");
 
-    dir = `${__dirname}/${dir}`;
+  dir = `${__dirname}/${dir}`;
 
-    const files = fs.readdirSync(dir, 'utf-8');
+  const files = fs.readdirSync(dir, "utf-8");
 
-    files.forEach(x => {
+  files.forEach((x) => {
+    const command = require(`${dir}/${x}`);
 
-        const command = require(`${dir}/${x}`);
+    client.commands.set(command.name, command);
+    command.aliases.forEach((x) => {
+      if (x.length === 0) return;
+      else {
+        client.commands.set(x, command);
+      }
+    });
+  });
 
-        client.commands.set(command.name, command);
-        command.aliases.forEach(x => {
-            if (x.length === 0) return;
-            else {
-                client.commands.set(x, command);
-            }
-        })
-    })
-
-    return console.log('Commands has been loaded succesfully!'.blue);
+  return console.log("Commands has been loaded succesfully!".blue);
 }
 
 function formatDB() {
+  const db = require("quick.db");
+  const database = db.all();
 
-    const db = require('quick.db');
-    const database = db.all();
+  if (database.length === 0) return;
 
-    if (database.length === 0) return;
+  let count = 0;
+  database.forEach((data) => {
+    db.delete(data.ID);
+    count++;
+  });
 
-    let count = 0;
-    database.forEach(data => {
-
-        db.delete(data.ID);
-        count++
-    })
-    
-    return console.log(`All verification links has been removed! (${count})`.blue);
+  return console.log(
+    `All verification links has been removed! (${count})`.blue
+  );
 }
 
-client.on('ready', async () => {
-    await loadCommands('Commands');
-    await formatDB();
-    await dashboard.start(client);
-    console.log('Discord verification bot has been started!'.cyan);
-})
+client.on("ready", async () => {
+  await loadCommands("Commands");
+  await formatDB();
+  await dashboard.start(client);
+  console.log("Discord verification bot has been started!".cyan);
+});
 
-client.on('message', async (message) => {
-    if (message.author.bot || !message.guild) return;
+client.on("message", async (message) => {
+  if (message.author.bot || !message.guild) return;
 
-    if (!message.content.startsWith(process.env.PREFIX)) return;
+  if (!message.content.startsWith(process.env.PREFIX)) return;
 
-    const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
+  const args = message.content
+    .slice(process.env.PREFIX.length)
+    .trim()
+    .split(/ +/g);
+  const cmd = args.shift().toLowerCase();
 
-    if (client.commands.has(cmd)) {
+  if (client.commands.has(cmd)) {
+    const command = client.commands.get(cmd);
 
-        const command = client.commands.get(cmd);
-
-        try {
-
-            await command.run(client, message, args);
-
-        } catch (err) {
-
-            console.log(`[${command.name}]: ${err}`.red);
-        }
-
+    try {
+      await command.run(client, message, args);
+    } catch (err) {
+      console.log(`[${command.name}]: ${err}`.red);
     }
-})
+  }
+});
 
 client.login(process.env.TOKEN);
